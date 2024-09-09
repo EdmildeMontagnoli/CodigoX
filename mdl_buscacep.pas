@@ -9,7 +9,7 @@ type
   TCEPModel = class
   private
     FIdHTTP: TIdHTTP;
-    FSSLHandler: TIdSSLIOHandlerSocketOpenSSL;
+    FSSLHandler: TIdSSLIOHandlerSocketOpenSSL;    //Caso dê problema aqui instalar o pacote Indy10
     function ConsultaViaCEP(CEP: string): string;
     function ConsultaApiCEP(CEP: string): string;
     function ConsultaAwesomeAPI(CEP: string): string;
@@ -24,15 +24,15 @@ implementation
 constructor TCEPModel.Create;
 begin
   FIdHTTP := TIdHTTP.Create(nil);
-  FSSLHandler := TIdSSLIOHandlerSocketOpenSSL.Create(nil);
-  FIdHTTP.IOHandler := FSSLHandler;
+  FSSLHandler := TIdSSLIOHandlerSocketOpenSSL.Create(nil);  //Caso dê problema aqui instalar o pacote Indy10
+  FIdHTTP.IOHandler := FSSLHandler;                         //Caso dê problema aqui instalar o pacote Indy10
   FIdHTTP.Request.ContentType := 'application/json';
 end;
 
 destructor TCEPModel.Destroy;
 begin
   FIdHTTP.Free;
-  FSSLHandler.Free;
+  FSSLHandler.Free;  //Caso dê problema aqui instalar o pacote Indy10
   inherited;
 end;
 
@@ -66,10 +66,8 @@ end;
 function TCEPModel.ConsultarCEP(CEP: string): string;
 begin
   Result := ConsultaViaCEP(CEP);
-  if Result = '' then
-    Result := ConsultaApiCEP(CEP);
-  if Result = '' then
-    Result := ConsultaAwesomeAPI(CEP);
+  if Result = '' then Result := ConsultaApiCEP(CEP);
+  if Result = '' then Result := ConsultaAwesomeAPI(CEP);
 end;
 
 end.

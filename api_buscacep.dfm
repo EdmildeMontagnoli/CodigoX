@@ -48,6 +48,7 @@ object frmApiBuscaCEP: TfrmApiBuscaCEP
     Height = 25
     Caption = 'Consulta CEP'
     TabOrder = 1
+    OnClick = ButtonConsultarClick
   end
   object MemoEndereco: TMemo
     Left = 20
@@ -55,5 +56,16 @@ object frmApiBuscaCEP: TfrmApiBuscaCEP
     Width = 385
     Height = 89
     TabOrder = 2
+  end
+  object IdHTTPServer1: TIdHTTPServer
+    Bindings = <>
+    CommandHandlers = <>
+    Greeting.NumericCode = 0
+    MaxConnectionReply.NumericCode = 0
+    ReplyExceptionCode = 0
+    ReplyTexts = <>
+    ReplyUnknownCommand.NumericCode = 0
+    Left = 295
+    Top = 20
   end
 end

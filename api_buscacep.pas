@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, bll_buscacep, Buttons;
+  Dialogs, StdCtrls, bll_buscacep, Buttons, IdBaseComponent, IdComponent,
+  IdTCPServer, IdCustomHTTPServer, IdHTTPServer;
 
 type
   TfrmApiBuscaCEP = class(TForm)
@@ -13,6 +14,7 @@ type
     MemoEndereco: TMemo;
     Label1: TLabel;
     lblResultado: TLabel;
+    IdHTTPServer1: TIdHTTPServer;
     procedure FormShow(Sender: TObject);
     procedure ButtonConsultarClick(Sender: TObject);
   private
@@ -49,7 +51,16 @@ var
 begin
   try
     Endereco := FController.BuscarEndereco(EditCEP.Text);
-    MemoEndereco.Lines.Text := Endereco;
+    if Length(Trim(Endereco)) > 0 then
+    begin
+      MemoEndereco.Lines.Text := Endereco;
+    end
+    else
+    begin
+      EditCEP.Text := '';
+      EditCEP.setfocus();
+      lblResultado.Caption := 'CEP não encontrado...'
+    end;
   except
     on E: Exception do
       ShowMessage(E.Message);
